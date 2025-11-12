@@ -265,9 +265,12 @@ ogs<!DOCTYPE html>
                 html += `<p class="govuk-body-l">${escapeHtml(servicePage.fields.summary)}</p>`;
             }
 
-            if (servicePage.fields.startButtonUrl) {
+// Check for start button URL - field ID in Contentful is "startButton"
+            const startUrl = servicePage.fields.startButton || servicePage.fields.startButtonUrl;
+            
+            if (startUrl) {
                 html += `
-                    <a href="${escapeHtml(servicePage.fields.startButtonUrl)}" 
+                    <a href="${escapeHtml(startUrl)}" 
                        class="govuk-button govuk-button--start" 
                        target="_blank" 
                        rel="noopener noreferrer">
