@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GOV.UK - Contentful Demo</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { 
+            margin: 0; 
+            font-family: "GDS Transport", arial, sans-serif; 
+            -webkit-font-smoothing: antialiased; 
+        }
+        .govuk-header { 
+            background-color: #0b0c0c; 
+            padding: 10px 0; 
+            border-bottom: 10px solid #1d70b8; 
+        }
+        .govuk-header__container { 
+            max-width: 960px; 
+            margin: 0 auto; 
+            padding: 0 15px; 
+            display: flex; 
+            align-items: center; 
+        }
+        .govuk-header__link { 
+            color: white; 
+            text-decoration: none; 
+            font-weight: bold; 
+            font-size: 30px; 
+        }
+        .govuk-header__link:hover { text-decoration: underline; }
+        .govuk-width-container { 
+            max-width: 960px; 
+            margin: 0 auto; 
+            padding: 0 15px; 
+        }
+        .govuk-phase-banner { 
+            padding: 15px 0; 
+            border-bottom: 1px solid #b1b4b6; 
+        }
+        .govuk-phase-banner__content { 
+            display: flex; 
+            align-items: center; 
+        }
+        .govuk-tag { 
+            display: inline-block; 
+            padding: 5px 8px; 
+            background-color: #1d70b8; 
+            color: white; 
+            font-weight: bold; 
+            font-size: 14px; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+        }
+        .govuk-phase-banner__text { 
+            margin-left: 10px; 
+            font-size: 16px; 
+            color: #0b0c0c; 
+        }
+        .demo-notice {
+            background-color: #ffe5cc;
+            border-left: 4px solid #f47738;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .demo-notice h2 {
+            margin: 0 0 10px 0;
+            font-size: 24px;
+            color: #0b0c0c;
+        }
+        .demo-notice p {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        .demo-notice a {
+            color: #1d70b8;
+            font-weight: bold;
+        }
+        .govuk-main-wrapper { padding: 40px 0 80px 0; }
+        .govuk-heading-xl { 
+            font-size: 48px; 
+            line-height: 1.09375; 
+            font-weight: bold; 
+            margin: 0 0 30px 0; 
+            color: #0b0c0c; 
+        }
+        .govuk-heading-m { 
+            font-size: 24px; 
+            line-height: 1.25; 
+            font-weight: bold; 
+            margin: 30px 0 15px 0; 
+            color: #0b0c0c; 
+        }
+        .govuk-heading-s { 
+            font-size: 19px; 
+            line-height: 1.31579; 
+            font-weight: bold; 
+            margin: 20px 0 15px 0; 
+            color: #0b0c0c; 
+        }
+        .govuk-body-l { 
+            font-size: 24px; 
+            line-height: 1.25; 
+            margin: 0 0 20px 0; 
+            color: #0b0c0c; 
+        }
+        .govuk-body { 
+            font-size: 19px; 
+            line-height: 1.47368; 
+            margin: 0 0 15px 0; 
+            color: #0b0c0c; 
+        }
+        .govuk-list { margin: 0 0 20px 0; }
+        .govuk-list--bullet { 
+            list-style-type: disc; 
+            padding-left: 20px; 
+        }
+        .govuk-list--bullet li { margin-bottom: 10px; }
+        .govuk-button { 
+            background-color: #00703c; 
+            color: white; 
+            padding: 12px 20px; 
+            border: 2px solid transparent; 
+            font-size: 19px; 
+            font-weight: 600; 
+            cursor: pointer; 
+            text-decoration: none; 
+            display: inline-block; 
+            margin: 20px 8px 20px 0; 
+            border-radius: 0; 
+            box-shadow: 0 2px 0 #002d18; 
+        }
+        .govuk-button--start { 
+            font-size: 24px; 
+            padding: 12px 30px; 
+            display: inline-flex; 
+            align-items: center; 
+        }
+        .govuk-button--start::after { 
+            content: "→"; 
+            margin-left: 10px; 
+            font-size: 28px; 
+        }
+        .govuk-button:hover { background-color: #005a30; }
+        .govuk-caption-xl { 
+            font-size: 27px; 
+            line-height: 1.11111; 
+            display: block; 
+            margin-bottom: 10px; 
+            color: #505a5f; 
+        }
+        a { color: #1d70b8; }
+        a:hover { color: #003078; }
+        .loading-box, .error-box {
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .loading-box {
+            background-color: #f3f2f1;
+            border-left: 4px solid #1d70b8;
+        }
+        .error-box {
+            border: 4px solid #d4351c;
+            background-color: #fff;
+        }
+        .error-box h2 {
+            color: #d4351c;
+            margin-top: 0;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <header class="govuk-header">
+        <div class="govuk-header__container">
+            <div class="govuk-header__logo">
+                <a href="/" class="govuk-header__link">GOV.UK</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="govuk-width-container">
+        <div class="govuk-phase-banner">
+            <p class="govuk-phase-banner__content">
+                <strong class="govuk-tag">Demo</strong>
+                <span class="govuk-phase-banner__text">
+                    This is a demonstration powered by Contentful
+                </span>
+            </p>
+        </div>
+
+        <div class="demo-notice">
+            <h2>👋 This is a Live Demo</h2>
+            <p>You're viewing a read-only demonstration connected to a sample Contentful space. This shows you what's possible with Contentful.</p>
+            <p><strong>Want to build your own?</strong> Download the project files from <a href="https://github.com/YOUR-USERNAME/contentful-learning-project">GitHub</a> and follow the setup guide to create your own version with your own content!</p>
+        </div>
+
+        <main class="govuk-main-wrapper" id="content">
+            <div class="loading-box">
+                <p style="margin: 0;">Loading content from Contentful...</p>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Demo configuration - connected to the sample Contentful space
+        const SPACE_ID = '580251rmw49s';
+        const DELIVERY_TOKEN = 'uy1OK3vdmQXP2YHWiQySRP2MDN04fbCiPR8WLB3g-7U';
+
+        let servicePage = null;
+        let organisation = null;
+
+        const contentDiv = document.getElementById('content');
+
+        async function fetchContent() {
+            contentDiv.innerHTML = '<div class="loading-box"><p style="margin: 0;">Loading content from Contentful...</p></div>';
+
+            try {
+                const url = `https://cdn.contentful.com/spaces/${SPACE_ID}/entries?content_type=servicePage&include=2`;
+
+                const response = await fetch(url, {
+                    headers: {
+                        'Authorization': `Bearer ${DELIVERY_TOKEN}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+
+                if (data.items && data.items.length > 0) {
+                    servicePage = data.items[0];
+
+                    // Find linked organisation
+                    if (servicePage.fields.organisation && data.includes?.Entry) {
+                        const orgId = servicePage.fields.organisation.sys.id;
+                        organisation = data.includes.Entry.find(entry => entry.sys.id === orgId);
+                    }
+
+                    renderContent();
+                } else {
+                    showError('No service pages found in the demo space.');
+                }
+            } catch (err) {
+                console.error('Fetch error:', err);
+                showError(`Unable to load demo content: ${err.message}`);
+            }
+        }
+
+        function renderContent() {
+            let html = '';
+
+            if (organisation && organisation.fields) {
+                html += `<span class="govuk-caption-xl">${escapeHtml(organisation.fields.name)}</span>`;
+            }
+
+            html += `<h1 class="govuk-heading-xl">${escapeHtml(servicePage.fields.title)}</h1>`;
+
+            if (servicePage.fields.summary) {
+                html += `<p class="govuk-body-l">${escapeHtml(servicePage.fields.summary)}</p>`;
+            }
+
+            if (servicePage.fields.startButtonUrl) {
+                html += `
+                    <a href="${escapeHtml(servicePage.fields.startButtonUrl)}" 
+                       class="govuk-button govuk-button--start" 
+                       target="_blank" 
+                       rel="noopener noreferrer">
+                        Start now
+                    </a>`;
+            }
+
+            if (servicePage.fields.bodyContent) {
+                html += '<div style="margin-top: 40px;">';
+                html += renderRichText(servicePage.fields.bodyContent);
+                html += '</div>';
+            }
+
+            if (servicePage.fields.lastUpdated) {
+                const date = new Date(servicePage.fields.lastUpdated);
+                const formatted = date.toLocaleDateString('en-GB', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                });
+                html += `
+                    <p class="govuk-body" style="color: #505a5f; margin-top: 40px; font-size: 16px;">
+                        Last updated: ${formatted}
+                    </p>`;
+            }
+
+            if (organisation && organisation.fields) {
+                html += '<div style="margin-top: 60px; padding-top: 30px; border-top: 1px solid #b1b4b6;">';
+                html += `<h2 class="govuk-heading-m">${escapeHtml(organisation.fields.name)}</h2>`;
+                
+                if (organisation.fields.description) {
+                    html += `<p class="govuk-body">${escapeHtml(organisation.fields.description)}</p>`;
+                }
+                
+                if (organisation.fields.websiteUrl) {
+                    html += `
+                        <p class="govuk-body">
+                            <a href="${escapeHtml(organisation.fields.websiteUrl)}" target="_blank" rel="noopener noreferrer">
+                                Visit the ${escapeHtml(organisation.fields.name)} website
+                            </a>
+                        </p>`;
+                }
+                
+                html += '</div>';
+            }
+
+            contentDiv.innerHTML = html;
+        }
+
+        function renderRichText(richText) {
+            if (!richText || !richText.content) return '';
+
+            let html = '';
+
+            richText.content.forEach(node => {
+                if (node.nodeType === 'paragraph') {
+                    const text = node.content?.map(n => escapeHtml(n.value || '')).join('');
+                    if (text) {
+                        html += `<p class="govuk-body">${text}</p>`;
+                    }
+                } else if (node.nodeType === 'unordered-list') {
+                    html += '<ul class="govuk-list govuk-list--bullet">';
+                    node.content?.forEach(listItem => {
+                        const text = escapeHtml(listItem.content?.[0]?.content?.[0]?.value || '');
+                        if (text) {
+                            html += `<li>${text}</li>`;
+                        }
+                    });
+                    html += '</ul>';
+                } else if (node.nodeType === 'heading-2') {
+                    const text = node.content?.map(n => escapeHtml(n.value || '')).join('');
+                    if (text) {
+                        html += `<h2 class="govuk-heading-m">${text}</h2>`;
+                    }
+                } else if (node.nodeType === 'heading-3') {
+                    const text = node.content?.map(n => escapeHtml(n.value || '')).join('');
+                    if (text) {
+                        html += `<h3 class="govuk-heading-s">${text}</h3>`;
+                    }
+                }
+            });
+
+            return html;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function showError(message) {
+            contentDiv.innerHTML = `
+                <div class="error-box">
+                    <h2>Error loading demo content</h2>
+                    <p class="govuk-body">${escapeHtml(message)}</p>
+                    <p class="govuk-body">This demo requires the sample Contentful space to be set up correctly.</p>
+                </div>`;
+        }
+
+        // Load content on page load
+        fetchContent();
+    </script>
+</body>
+</html>
